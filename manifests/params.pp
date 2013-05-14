@@ -3,5 +3,10 @@ class supervisor::params {
     $conf_dir       = '/etc/supervisord.d'
     $system_service = 'supervisord'
     $package        = 'supervisor'
-    $init_file      = '/etc/init/supervisord.conf'
+    $init_file      = '/etc/supervisord.init'
+    if $::operatingsystem == 'Debian' {
+        $supervisorctl  = '/usr/local/bin/supervisorctl'
+    } elsif $::operatingsystem == 'Gentoo' {
+        $supervisorctl  = '/usr/bin/supervisorctl'
+    }
 }

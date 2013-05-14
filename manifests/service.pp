@@ -92,10 +92,10 @@ define supervisor::service (
   service { "supervisor::${name}":
     ensure   => $service_ensure,
     provider => base,
-    restart  => "/usr/local/bin/supervisorctl restart ${process_name}",
-    start    => "/usr/local/bin/supervisorctl start ${process_name}",
-    status   => "/usr/local/bin/supervisorctl status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
-    stop     => "/usr/local/bin/supervisorctl stop ${process_name}",
+    restart  => "${supervisor::params::supervisorctl} restart ${process_name}",
+    start    => "${supervisor::params::supervisorctl} start ${process_name}",
+    status   => "${supervisor::params::supervisorctl} status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
+    stop     => "${supervisor::params::supervisorctl} stop ${process_name}",
     require  => File["${supervisor::params::conf_dir}/${name}.ini"],
   }
 }
